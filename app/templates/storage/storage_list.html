@@ -1,0 +1,17 @@
+{% extends 'base.html' %}
+{% block title %}Password storage{% endblock %}
+
+
+{% block content_title %}Your passwords{%endblock %}
+{% block content %}
+<a href="{% url 'create_storage' %}" class="button">Create password</a><hr>
+{% if password_storage_list %}
+    {% for passwd in password_storage_list %}
+    <hr>
+    <iframe src="{{ passwd.site }}"></iframe>
+    <a href="{{ passwd.get_absolute_url }}" class="button">More</a>
+    {% endfor %}
+{% else %}
+    <h1 align="center">You don't have any passwords</h1>
+{% endif %}
+{% endblock %}

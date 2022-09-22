@@ -1,0 +1,20 @@
+{% extends 'base.html' %}
+{% load crispy_forms_tags %}
+
+{% block title %}PasswordGenerator{% endblock %}
+
+{% block content_title %}PasswordGenerator{% endblock %}
+
+{% block content %}
+    <form id='form' class='p-3' method="POST">
+        {% csrf_token %}
+        <input id='length' type="number" max="30" class="form-control" placeholder="Input a length of password"
+        {% if length %} value="{{ length }}" {% endif %} name="length"><br>
+
+        <input type="submit" class="btn btn-success" align="center" value="Generate">
+        <hr>
+        {% if password %}
+            <h1 align="center">{{ password }}</h1>
+        {% endif %}
+    </form>
+{% endblock %}
