@@ -8,7 +8,6 @@ from .forms import CreationPasswordInStorageForm
 from .models import PasswordStorage
 from .secure import encode_password, decode_password, key
 
-
 class PasswordList(LoginRequiredMixin, ListView):
     model = PasswordStorage
     login_url = reverse_lazy('account_login')
@@ -60,6 +59,13 @@ class PasswordUpdate(LoginRequiredMixin, UserPassesTestMixin, UpdateView):
         initial['password'] = 'New password'
         return initial
     
+    def form_valid(self, form):
+        edited_password = form.save(commit=False)
+        encoded_passwd = encode_password(edited_password.password)
+        edited_password.password = encoded_passwd
+        edited_password.save()
+        return super().form_valid(form) 
+        
     def get_success_url(self):
         record = self.get_object()       
         return record.get_absolute_url()
