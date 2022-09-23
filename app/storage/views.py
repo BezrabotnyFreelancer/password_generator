@@ -7,9 +7,8 @@ from django.contrib.auth.mixins import LoginRequiredMixin, UserPassesTestMixin
 from .forms import CreationPasswordInStorageForm
 from .models import PasswordStorage
 from .secure import encode_password, decode_password, key
-from .filter_url import filter
 
-
+  
 class PasswordList(LoginRequiredMixin, ListView):
     model = PasswordStorage
     login_url = reverse_lazy('account_login')
