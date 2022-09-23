@@ -8,7 +8,7 @@
 {% if password_storage_list %}
     {% for passwd in password_storage_list %}
     <hr>
-    <iframe src="{{ passwd.site }}"></iframe>
+    <h1>{{ domain }}</h1>
     <a href="{{ passwd.get_absolute_url }}" class="button">More</a>
     {% endfor %}
 {% else %}
