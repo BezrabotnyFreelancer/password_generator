@@ -13,7 +13,7 @@ class PasswordStorage(models.Model):
     key = models.BinaryField(blank=True, null=True,)
     
     def __str__(self):
-        return self.user
+        return self.user.username
     
     def get_absolute_url(self):
         return reverse('storage_detail', args=[str(self.id)])
