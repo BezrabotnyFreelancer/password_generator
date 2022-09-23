@@ -6,9 +6,8 @@
 {% block content_title %}Your password{% endblock %}
 
 {% block content %}
-<iframe src="{{ storage.site }}"></iframe>
-<a href="{{ storage.site }}" class="buton">Go on site</a><br>
-<h1 align="center">{{ decoded_password }}</h1>
+<a href="{{ storage.site }}" class="button">Go on site</a><br>
+<h1 align="center">Password: {{ decoded_password }}</h1>
 <a href="{% url 'storage_update' storage.id %}" class="button">Edit password</a> | 
 <a href="{% url 'storage_delete' storage.id %}" class="button">Delete</a>
 {% endblock %}
