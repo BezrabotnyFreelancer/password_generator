@@ -1,3 +1,4 @@
+from urllib import request
 from django.shortcuts import render, redirect, HttpResponse
 from django.urls import reverse_lazy
 from django.contrib.auth.decorators import login_required
@@ -7,16 +8,19 @@ from django.contrib.auth.mixins import LoginRequiredMixin, UserPassesTestMixin
 from .forms import CreationPasswordInStorageForm
 from .models import PasswordStorage
 from .secure import encode_password, decode_password, key
+from .filter_url import filter
+
 
 class PasswordList(LoginRequiredMixin, ListView):
     model = PasswordStorage
     login_url = reverse_lazy('account_login')
     template_name = 'storage/storage_list.html'
     context_object_name = 'password_storage_list'
-            
+                
     def get_queryset(self):
         qs = super().get_queryset()
         return qs.filter(user=self.request.user)
+        
 
 @login_required(login_url=reverse_lazy('account_login'))
 def password_detail(request, pk):
@@ -26,7 +30,7 @@ def password_detail(request, pk):
         decoded_passwd = decode_password(storage.password[1:], storage.key)
         context = {
                 'storage': storage,
-                'decoded_password': decoded_passwd
+                'decoded_password': decoded_passwd,
                 }
         return render(request, 'storage/storage_detail.html', context=context)
     
@@ -40,14 +44,13 @@ class PasswordDelete(LoginRequiredMixin, UserPassesTestMixin, DeleteView):
     template_name = 'storage/storage_delete.html'
     
     def get_success_url(self):
-        record = self.get_object()
-        return record.get_absolute_url()
+        return reverse_lazy('storage_list')
 
     def test_func(self):
         obj = self.get_object()
         return self.request.user == obj.user
     
-# create with function
+
 class PasswordUpdate(LoginRequiredMixin, UserPassesTestMixin, UpdateView):
     model = PasswordStorage
     login_url = reverse_lazy('account_login')
