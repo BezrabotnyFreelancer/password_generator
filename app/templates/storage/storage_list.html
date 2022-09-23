@@ -1,4 +1,5 @@
 {% extends 'base.html' %}
+{% load filter_url %}
 {% block title %}Password storage{% endblock %}
 
 
@@ -8,7 +9,7 @@
 {% if password_storage_list %}
     {% for passwd in password_storage_list %}
     <hr>
-    <h1>{{ domain }}</h1>
+    <h3 align="center">{{ passwd.site|filter }}</h3>
     <a href="{{ passwd.get_absolute_url }}" class="button">More</a>
     {% endfor %}
 {% else %}
