@@ -12,11 +12,18 @@
         {% if length %} value="{{ length }}" {% endif %} name="length"><br>
 
         <input type="submit" class="btn btn-success" align="center" value="Generate">
-        <hr>
         {% if password %}
             <h3 align="center">{{ password }}</h3>        
             {% if user.is_authenticated %}
-            <a href="{% url 'create_storage' %}" class="button">Save to storage</a>
+            <hr>
+            <p>Do you wanst to save password in storage?</p>
+                <form id="form" class="p-3" method="POST">
+                    {% csrf_token %}
+                    <input type="url" id="site" class="form-control" placeholder="Your site" name="site"><br>
+                    <input type="submit" class="btn btn-success" value="Save">
+                </form>
+                </li>
+                </ul>
             {% endif %}
         {% endif %}
     </form>

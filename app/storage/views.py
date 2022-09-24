@@ -17,7 +17,7 @@ class PasswordList(LoginRequiredMixin, ListView):
                 
     def get_queryset(self):
         qs = super().get_queryset()
-        return qs.filter(user=self.request.user)
+        return qs.filter(user=self.request.user).order_by('-id')
         
 
 @login_required(login_url=reverse_lazy('account_login'))
