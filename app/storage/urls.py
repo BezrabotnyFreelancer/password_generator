@@ -7,5 +7,5 @@ urlpatterns = [
     path('<uuid:pk>/', views.password_detail, name='storage_detail'),
     path('<uuid:pk>/update/', views.PasswordUpdate.as_view(), name='storage_update'),
     path('<uuid:pk>/delete/', views.PasswordDelete.as_view(), name='storage_delete'),
-    path('create/', views.create_password, name='create_storage')
+    path('create/', views.CreatePassword.as_view(), name='create_storage')
 ]

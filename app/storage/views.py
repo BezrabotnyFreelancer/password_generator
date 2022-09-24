@@ -1,7 +1,7 @@
 from django.shortcuts import render, redirect, HttpResponse
 from django.urls import reverse_lazy
 from django.contrib.auth.decorators import login_required
-from django.views.generic import ListView, DetailView, DeleteView, UpdateView
+from django.views.generic import ListView, DeleteView, UpdateView, CreateView
 from django.contrib.auth.mixins import LoginRequiredMixin, UserPassesTestMixin
 # Create your views here.
 from .forms import CreationPasswordInStorageForm
@@ -76,20 +76,16 @@ class PasswordUpdate(LoginRequiredMixin, UserPassesTestMixin, UpdateView):
         return self.request.user == obj.user
 
 
-@login_required(login_url=reverse_lazy('account_login'))
-def create_password(request):
-    if request.method == 'POST':
-        new_password = CreationPasswordInStorageForm(request.POST)
-        if new_password.is_valid():
-            passwd = PasswordStorage()
-            passwd.user = request.user
-            passwd.site = new_password.cleaned_data['site'] 
-            passwd.password = encode_password(new_password.cleaned_data['password'])
-            passwd.key = key
-            passwd.save()
-            return redirect('storage_detail', pk=passwd.pk)
-        else:
-            return render(request, 'storage/storage_create.html', {'form': CreationPasswordInStorageForm})
-    else:
-        return render(request, 'storage/storage_create.html', {'form': CreationPasswordInStorageForm})
-
+class CreatePassword(LoginRequiredMixin, CreateView):
+    model = PasswordStorage
+    form_class = CreationPasswordInStorageForm
+    login_url = reverse_lazy('account_login')
+    template_name = 'storage/storage_create.html'
+    
+    def form_valid(self, form):
+        new_password = form.save(commit=False)
+        new_password.user = self.request.user
+        new_password.password = encode_password(new_password.password)
+        new_password.key = key
+        new_password.save()
+        return super().form_valid(form)

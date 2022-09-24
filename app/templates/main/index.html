@@ -14,7 +14,10 @@
         <input type="submit" class="btn btn-success" align="center" value="Generate">
         <hr>
         {% if password %}
-            <h1 align="center">{{ password }}</h1>
+            <h3 align="center">{{ password }}</h3>        
+            {% if user.is_authenticated %}
+            <a href="{% url 'create_storage' %}" class="button">Save to storage</a>
+            {% endif %}
         {% endif %}
     </form>
 {% endblock %}

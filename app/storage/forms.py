@@ -1,9 +1,14 @@
-from django import forms
+from django.forms import ModelForm
+from django.forms import TextInput, URLInput
+from .models import PasswordStorage
 
 
-class CreationPasswordInStorageForm(forms.Form):
-    site = forms.URLField(label='Site URL', help_text='Input an url address',
-                          widget=forms.URLInput(attrs={'class': 'form-control', 'placeholder': 'Your url'}))
-    
-    password = forms.CharField(label='Password', help_text='Input a password of site',
-                               widget=forms.TextInput(attrs={'class': 'form-control', 'placeholder': 'Your password'}))
+class CreationPasswordInStorageForm(ModelForm):
+    class Meta:
+        model = PasswordStorage
+        fields = ('site', 'password')
+        widgets = {
+            'site': URLInput(attrs={'class': 'form-control', 'placeholder': 'Your url'}),
+            'password': TextInput(attrs={'class': 'form-control', 'placeholder': 'Your password'})
+        }
+        labels = {x: x.title() for x in fields}

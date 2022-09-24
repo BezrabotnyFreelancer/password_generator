@@ -5,13 +5,13 @@
 
 {% block content_title %}Your passwords{%endblock %}
 {% block content %}
-<a href="{% url 'create_storage' %}" class="button">Create password</a><hr>
+<p align="center"><a href="{% url 'create_storage' %}" class="button" style="background-color: #66CDAA; width: 35%">Create password</a></p><hr>
 {% if password_storage_list %}
     {% for passwd in password_storage_list %}
     <hr>
     <h3 align="center">{{ passwd.site|filter }}</h3>
-    <a href="{{ passwd.get_absolute_url }}" class="button">More</a>
-    {% endfor %}
+    <p align="center"><a href="{{ passwd.get_absolute_url }}" class="button" style="background-color: #AFEEEE; border-radius: 40px; width: 25%;">More</a></p>
+{% endfor %}
 {% else %}
     <h1 align="center">You don't have any passwords</h1>
 {% endif %}

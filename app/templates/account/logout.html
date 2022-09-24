@@ -2,19 +2,12 @@
 {% load crispy_forms_tags %}
 
 {% block title %}Log Out{% endblock %}
-
+{% block content_title %}Log out{% endblock %}
 {% block content %}
-<div class="row">
-    <div class="card box-shadow m-2 form-wrap">
-        <div class="card-header text-center">
-            <h3>Log out</h3>
-        </div>
-        <form class='p-5' method="post">
-            {% csrf_token %}
-            {{ form|crispy }}
-            <h4>Are you sure you want to log out?</h4><br>
-            <input class="btn btn-danger" type="submit" value="Log out">
-        </form>
-    </div>
-</div>
+<form class='p-5' method="post">
+    {% csrf_token %}
+    {{ form|crispy }}
+    <h4>Are you sure you want to log out?</h4><br>
+    <input class="btn btn-danger" type="submit" value="Log out">
+</form>
 {% endblock %}
