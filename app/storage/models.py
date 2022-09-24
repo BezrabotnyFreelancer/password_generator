@@ -18,6 +18,14 @@ class PasswordStorage(models.Model):
     def get_absolute_url(self):
         return reverse('storage_detail', args=[str(self.id)])
     
+    def create_passwd_from_generator(self, user, site, password, key):
+        new_passwd = PasswordStorage
+        new_passwd.user = user
+        new_passwd.site = site
+        new_passwd.password = password
+        new_passwd.key = key
+        new_passwd.save()
+    
     class Meta:
         verbose_name = 'Password'
         verbose_name_plural = 'Passwords'

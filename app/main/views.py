@@ -4,7 +4,6 @@ from .generator import generate_password
 
 
 def return_password(request):
-    global passwd_placeholder
     if request.method == 'POST':
         length = request.POST.get('length')
         try:
