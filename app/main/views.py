@@ -1,10 +1,10 @@
-from django.shortcuts import render
 from django.shortcuts import redirect
 from .error import EmptyString
 # Create your views here.
 from .generator import generate_password
 from storage.secure import encode_password, key
 from storage.models import PasswordStorage
+from .template_render import index_html
 
 def return_password(request):
     final_password = ''
@@ -22,7 +22,7 @@ def return_password(request):
                         raise EmptyString
                 
                 except EmptyString:
-                    return render(request, 'main/index.html', context)
+                    return index_html(request, context)
                 
                 encoded_password = encode_password(final_password)
                 generated_object = PasswordStorage
@@ -35,11 +35,10 @@ def return_password(request):
                 
                 return redirect('storage_list')
             
-            return render(request, 'main/index.html', context)
-        
+            return index_html(request, context)       
+            
         except:
-            return render(request, 'main/index.html')
-    
+            return index_html(request)    
     else:
-        return render(request, 'main/index.html')
+        return index_html(request)
     
