@@ -8,7 +8,7 @@ from .template_render import index_html
 
 
 def return_password(request):
-    if request.method == 'POST' and request.POST.get('site') == None or request.POST.get('site') == '':
+    if request.method == 'POST' and (request.POST.get('site') == None or request.POST.get('site') == ''):
                
         length = request.POST.get('length')
         
