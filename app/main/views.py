@@ -1,11 +1,11 @@
 from django.shortcuts import redirect
-from .error import EmptyString
-# Create your views here.
 from .generator import generate_password
 from storage.secure import encode_password, key
 from storage.models import PasswordStorage
 from .models import TempGenPassword
 from .template_render import index_html
+# Create your views here.
+
 
 def return_password(request):
     if request.method == 'POST' and request.POST.get('site') == None or request.POST.get('site') == '':

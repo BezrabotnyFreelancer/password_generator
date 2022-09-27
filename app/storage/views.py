@@ -1,12 +1,12 @@
-from django.shortcuts import render, redirect, HttpResponse
+from django.shortcuts import render, HttpResponse
 from django.urls import reverse_lazy
 from django.contrib.auth.decorators import login_required
 from django.views.generic import ListView, DeleteView, UpdateView, CreateView
 from django.contrib.auth.mixins import LoginRequiredMixin, UserPassesTestMixin
-# Create your views here.
 from .forms import CreationPasswordInStorageForm
 from .models import PasswordStorage
 from .secure import encode_password, decode_password, key
+# Create your views here.
 
   
 class PasswordList(LoginRequiredMixin, ListView):
