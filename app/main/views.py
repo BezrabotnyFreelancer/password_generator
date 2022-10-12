@@ -9,9 +9,7 @@ from .template_render import index_html
 
 def return_password(request):
     if request.method == 'POST' and (request.POST.get('site') is None or request.POST.get('site') == ''):
-               
         length = request.POST.get('length')
-        
         try:
             final_password = generate_password(int(length))
             context = {'password': final_password, 'length': length}          

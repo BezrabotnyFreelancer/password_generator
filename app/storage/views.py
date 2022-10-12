@@ -64,6 +64,7 @@ class PasswordUpdate(LoginRequiredMixin, UserPassesTestMixin, UpdateView):
         edited_password = form.save(commit=False)
         encoded_passwd = encode_password(edited_password.password)
         edited_password.password = encoded_passwd
+        edited_password.key = key
         edited_password.save()
         return super().form_valid(form) 
         
