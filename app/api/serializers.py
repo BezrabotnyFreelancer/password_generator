@@ -16,4 +16,4 @@ class PasswordGenSerializer(serializers.ModelSerializer):
 class StorageSerializer(serializers.ModelSerializer):
     class Meta:
         model = PasswordStorage
-        fields = ['site', 'password']
+        fields = ['id', 'site', 'password']
